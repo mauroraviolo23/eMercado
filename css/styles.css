@@ -139,3 +139,65 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+
+/* clases página productos*/
+.cajaProducto {
+  border: 1px solid #000;
+  background-color: rgb(204, 204, 204);
+}
+
+.tituloAuto {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+/* clases página login */
+
+.login-body {
+  background-color: #f4faf0;
+}
+
+.login-form {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.title-special {
+  font-size: 1em;
+  font-family: 'Raleway', serif;
+  font-weight: bold;
+  color: #458cad;
+}
+
+.login-form-subtitle {
+  align-self: center;
+  font-size: 1.25em;
+  margin-bottom: 30px;
+}
+
+.login-form-send {
+  align-self: center;
+  width: 20%;
+  margin-bottom: 30px;
+  margin-right: 15px;
+}
+
+.login-form-send:hover {
+  cursor: pointer;
+  }
+
+.unregistered {
+  margin-top: -20px;
+}
+
+.login-img {
+  background-image: url(../img/login.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  width: 100%;
+  margin-top: -100px;
+}
