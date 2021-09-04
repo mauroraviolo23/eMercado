@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         if (resultObj.status === "ok"){
             sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
         }
+        console.log(resultObj)
     });
 
     document.getElementById("sortAsc").addEventListener("click", function(){

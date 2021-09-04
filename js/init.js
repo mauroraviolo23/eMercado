@@ -40,10 +40,18 @@ var getJSONData = function(url){
     });
 }
 
+var mostrarUsuario = () => {
+  document.getElementById("contLinksNavBar").innerHTML += `<p class="mostrarUsuario" id="mostrarUsuario">Usuario: </p>`;
+  document.getElementById("mostrarUsuario").innerHTML += (JSON.parse(localStorage.getItem("soloNombreUsuario")));
+};
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
   if (JSON.parse(localStorage.getItem("datosUsuario")) == null) { 
-    window.location = "login.html" };
+    window.location = "login.html" }
+  else {
+    mostrarUsuario();
+  }
 });

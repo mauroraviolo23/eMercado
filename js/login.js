@@ -4,21 +4,24 @@
 
 
 const usuarioContraseña = [];
+const soloNombreUsuario = [];
 
 const guardarUsuario = () => {
   const tbody = document.getElementById("info");
-  const mailUsuario = document.getElementById("mailUsuario");
+  const nombreUsuario = document.getElementById("nombreUsuario");
   const passwordUsuario = document.getElementById("passwordUsuario");
-  const mail = mailUsuario.value;
+  const nombre = nombreUsuario.value;
   const password = passwordUsuario.value;
-  if (mail && password) {
-    mailUsuario.value = "";
+  if (nombre && password) {
+    nombreUsuario.value = "";
     passwordUsuario.value = "";
     usuarioContraseña.push({
-      mail,
+      nombre,
       password,
     })
-    localStorage.setItem("datosUsuario", JSON.stringify(usuarioContraseña));;
+    soloNombreUsuario.push(nombre)
+    localStorage.setItem("datosUsuario", JSON.stringify(usuarioContraseña));
+    localStorage.setItem("soloNombreUsuario", JSON.stringify(soloNombreUsuario))
     window.location = "index.html";
   } else {
     alert("Ingrese los datos correctamente");

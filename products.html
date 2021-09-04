@@ -15,7 +15,7 @@
   </head>
   <body>
     <nav class="site-header sticky-top py-1 bg-dark">
-      <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <div class="container d-flex flex-column flex-md-row justify-content-between" id="contLinksNavBar">
         <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
         <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
         <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
@@ -23,14 +23,55 @@
         <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
       </div>
     </nav>
-    <div class="container">
-      <div class="cajaProducto" id="containerProductos">
-        <div class="cajaProducto" id="chevroletOnix"></div>
-        <div class="cajaProducto" id="fiatWay"></div>
-        <div class="cajaProducto" id="suzukiCelerio"></div>
-        <div class="cajaProducto" id="peugeot208"></div>
+    <main role="main" class="pb-5">
+      <div class="text-center p-4">
+          <h2>Productos</h2>
+          <p class="lead">Verás aquí todos los productos del sitio.</p>
       </div>
-    </div>
+      <div class="container">
+        <div class="row">
+            <div class="col text-right">
+                <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
+                  <span>Orden de precio:</span>
+                    <label class="btn btn-light active" id="sortPriceAsc" >
+                        <input type="radio" name="options" autocomplete="off" checked><i class="fas fa-sort-amount-down-alt mr-1"></i>Ascendente
+                    </label>
+                    <label class="btn btn-light" id="sortPriceDesc" >
+                        <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Descendente
+                    </label>
+                    <label class="btn btn-light" id="sortByCount" >
+                        <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Relevancia
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-md-6"></div>
+            <div class="col-md-6 col-sm-12 mb-1 container">
+              <div class="row container p-0 m-0">
+                <div class="col">
+                  <p class="font-weight-normal text-right my-2">Cant.</p>
+                </div>
+                <div class="col">
+                  <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
+                </div>
+                <div class="col">
+                  <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+                </div>
+                <div class="col-3 p-0">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
+                    <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      <div class="container">
+        <div class="cajaProducto" id="contProductos">
+        </div>
+      </div>
+    </main>
     <footer class="text-muted bg-light">
       <div class="container">
         <p class="float-right">

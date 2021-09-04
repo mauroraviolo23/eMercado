@@ -140,6 +140,12 @@ a.custom-card:hover {
   color: orange;
 }
 
+/* clases index */
+.mostrarUsuario {
+  color: white;
+  font-weight: bold;
+}
+
 
 /* clases página productos*/
 .cajaProducto {
