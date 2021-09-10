@@ -177,7 +177,7 @@ div#starContainer:first-child {
 }
 
 #numberRate {
-  margin-left: 5px;
+  display: none;
 }
 
 /* clases página login */
