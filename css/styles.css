@@ -147,7 +147,7 @@ a.custom-card:hover {
 }
 
 
-/* clases página productos*/
+/* clases página products*/
 .cajaProducto {
   border: 1px solid #000;
   background-color: rgb(204, 204, 204);
@@ -158,6 +158,33 @@ a.custom-card:hover {
   font-weight: bold;
 }
 
+/* clases página product-info*/
+#addComment {
+  resize: none;
+}
+
+div#starContainer:first-child {
+  display: block;
+}
+
+.fa-star {
+  cursor: pointer;
+}
+
+#starContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#submitComment {
+  margin-left: 228px;
+}
+
+#numberRate {
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+}
 
 /* clases página login */
 

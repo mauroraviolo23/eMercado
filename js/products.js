@@ -44,11 +44,23 @@ function showProductsList(){
         if (((minCount == undefined) || (minCount != undefined && parseInt(product.soldCount) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(product.soldCount) <= maxCount))){
 
-            htmlContentToAppend += `<div class="cajaProducto"> <p class="tituloAuto">Auto: ` + product.name +`<p>
-			<p>Descripción:`+ product.description +`<p>
-			<p>U$S ` + product.cost +`<p>
-			<p> Vendidos: ` + product.soldCount + `<p>
-			<img src="` + product.imgSrc + `"> </div>`;
+            htmlContentToAppend += `
+            <a href="product-info.html" class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">`+ product.name +`</h4>
+                            <small class="text-muted">` + product.soldCount + ` vendidos</small>
+                        </div>
+                        <p class="mb-1">` + product.description + `</p>
+                        <p class="mt-5 text-muted">`+ product.currency + ` ` + product.cost + `</p>
+                    </div>
+                </div>
+            </a>
+            `
         }
 
         document.getElementById("contProductos").innerHTML = htmlContentToAppend;
@@ -95,8 +107,6 @@ function sortAndShowProducts(sortCriteria, productsArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e) {
-
-const PRODUCTS_URL = "https://japdevdep.github.io/ecommerce-api/product/all.json";
 getJSONData(PRODUCTS_URL).then(function(resultObj){
 	if (resultObj.status === "ok"){
 		sortAndShowProducts(ORDER_ASC_BY_PRICE, resultObj.data);
