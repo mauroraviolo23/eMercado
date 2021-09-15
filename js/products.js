@@ -3,8 +3,8 @@ const ORDER_DESC_BY_PRICE = "Descendente";
 const ORDER_BY_SOLD_COUNT = "Relevancia";
 var currentProductsArray = [];
 var currentSortCriteria = undefined;
-var minCount = undefined;
-var maxCount = undefined;
+var minPrice = undefined;
+var maxPrice = undefined;
 
 function sortProducts(criteria, array){
     let result = [];
@@ -41,8 +41,8 @@ function showProductsList(){
     for(let i = 0; i < currentProductsArray.length; i++){
         let product = currentProductsArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.soldCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.soldCount) <= maxCount))){
+        if (((minPrice == undefined) || (minPrice != undefined && parseInt(product.cost) >= minPrice)) &&
+            ((maxPrice == undefined) || (maxPrice != undefined && parseInt(product.cost) <= maxPrice))){
 
             htmlContentToAppend += `
             <a href="product-info.html" class="list-group-item list-group-item-action">
@@ -66,28 +66,6 @@ function showProductsList(){
         document.getElementById("contProductos").innerHTML = htmlContentToAppend;
     }
 }
-
-function showProductsFilteredByPrice(){
-
-    let htmlContentToAppend = "";
-    for(let i = 0; i < currentProductsArray.length; i++){
-        let product = currentProductsArray[i];
-
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
-
-            htmlContentToAppend += `<div class="cajaProducto"> <p class="tituloAuto">Auto: ` + product.name +`<p>
-			<p>Descripción:`+ product.description +`<p>
-			<p>U$S ` + product.cost +`<p>
-			<p> Vendidos: ` + product.soldCount + `<p>
-			<img src="` + product.imgSrc + `"> </div>`;
-        }
-
-        document.getElementById("contProductos").innerHTML = htmlContentToAppend;
-    }
-}
-
-
 
 function sortAndShowProducts(sortCriteria, productsArray){
     currentSortCriteria = sortCriteria;
@@ -125,11 +103,11 @@ getJSONData(PRODUCTS_URL).then(function(resultObj){
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
-        document.getElementById("rangeFilterCountMin").value = "";
-        document.getElementById("rangeFilterCountMax").value = "";
+        document.getElementById("rangeFilterPriceMin").value = "";
+        document.getElementById("rangeFilterPriceMax").value = "";
 
-        minCount = undefined;
-        maxCount = undefined;
+        minPrice = undefined;
+        maxPrice = undefined;
 
         showProductsList();
     })
@@ -137,24 +115,24 @@ getJSONData(PRODUCTS_URL).then(function(resultObj){
 	document.getElementById("rangeFilterCount").addEventListener("click", function(){
         //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
         //de productos por categoría.
-        minCount = document.getElementById("rangeFilterCountMin").value;
-        maxCount = document.getElementById("rangeFilterCountMax").value;
+        minPrice = document.getElementById("rangeFilterPriceMin").value;
+        maxPrice = document.getElementById("rangeFilterPriceMax").value;
 
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
-            minCount = parseInt(minCount);
+        if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0){
+            minPrice = parseInt(minPrice);
         }
         else{
-            minCount = undefined;
+            minPrice = undefined;
         }
 
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
-            maxCount = parseInt(maxCount);
+        if ((maxPrice != undefined) && (maxPrice != "") && (parseInt(maxPrice)) >= 0){
+            maxPrice = parseInt(maxPrice);
         }
         else{
-            maxCount = undefined;
+            maxPrice = undefined;
         }
 
-        showProductsFilteredByPrice();
+        showProductsList();
     });
 });
 });
