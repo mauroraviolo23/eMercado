@@ -180,6 +180,19 @@ div#starContainer:first-child {
   display: none;
 }
 
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  max-width: 300px;
+  margin: auto;
+  display: inline-block;
+}
+
+.card:hover {
+  box-shadow: 0 12px 20px 0 rgba(0,0,0,0.2);
+}
+
 /* clases página login */
 
 .login-body {
@@ -192,6 +205,10 @@ div#starContainer:first-child {
   flex-direction: row;
 }
 
+.white {
+  color: #fff;
+}
+
 .title-special {
   font-size: 1em;
   font-family: 'Raleway', serif;
@@ -202,7 +219,9 @@ div#starContainer:first-child {
 .login-form-subtitle {
   align-self: center;
   font-size: 1.25em;
+ 
   margin-bottom: 30px;
+  color: #fff;
 }
 
 .login-form-send {
@@ -226,5 +245,5 @@ div#starContainer:first-child {
   background-size: cover;
   height: 500px;
   width: 100%;
-  margin-top: -100px;
+  margin-top: -60px;
 }

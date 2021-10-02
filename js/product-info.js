@@ -39,13 +39,29 @@ function starRateForAddedComment(value) {
     return goldStar.repeat(value) + blackStar.repeat(5-value);
 }
 
-chargeProductInfo = (url) => {
-    fetch(url)
+
+chargeProductInfo = (urlProduct, urlRelatedProductsList) => {
+    let addedContent = [];
+    let contentHolder = " ";
+    fetch(urlRelatedProductsList)
+    .then(respuesta=>respuesta.json())
+    .then(infoRelatedProduct => {
+        for(let i = 0; i < infoRelatedProduct.length; i++){
+            addedContent.push({name: infoRelatedProduct[i].name,
+                            description: infoRelatedProduct[i].description,
+                            currency: infoRelatedProduct[i].currency,
+                            cost: infoRelatedProduct[i].cost,
+                            imgSrc: infoRelatedProduct[i].imgSrc,
+                        });
+        }
+    })
+    fetch(urlProduct)
     .then(respuesta=>respuesta.json())
 	.then(infoProducto=> {
+        let img = 0;
         document.getElementById("productInfo").innerHTML = `
         <div id="productInfoBox">
-            <h3>` + infoProducto.name +`</h3>
+            <h3>` + infoProducto.name + `</h3>
             <dl>
                 <dt>Descripción</dt>
                 <dd>
@@ -61,32 +77,58 @@ chargeProductInfo = (url) => {
                 </dd>
                 <dt>Categoría</dt>
                 <dd>
-                    <p id="productCount">` + infoProducto.category + `</p>
-                </dd>
-                <dt>Productos relacionados</dt>
-                <dd>
-                    <p id="relatedProducts"><a href="products.html">Otros autos</a></p>
+                    <p id="productCategory">` + infoProducto.category + `</p>
                 </dd>
                 <dt>Imágenes</dt>
                 <dd>
-                    <div class="row text-center text-lg-left pt-2" id="productImagesGallery">
+                    <div class="row text-center pt-2" id="productImagesGallery">
+                        <div id="carouselControls" class="carousel slide ml-3" data-ride="carousel">
+                            <div id="carousel-inner" class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="` + infoProducto.images[img] + `" class="d-block w-80" alt="` + infoProducto.name + `">
+                                </div>
+                            </div>
+                    <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                        </div>
                     </div>
                 </dd>
             </dl>
+            <div>
+                <h4 class="text-center">Productos Relacionados</h4>
+                <div id="relatedProducts" class="d-flex flex-row">
+                </div>
+            </div>
         </div>
         `
-        for (let img = 0; img < infoProducto.images.length; img++) {
-            document.getElementById("productImagesGallery").innerHTML += `
-            <div class="col-lg-3 col-md-4 col-6">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + infoProducto.images[img] + `" alt="` + infoProducto.name + `">
-            </div>
+        for (let img = 1; img < infoProducto.images.length; img++) {
+            document.getElementById("carousel-inner").innerHTML +=`
+            <div class="carousel-item">
+                <img src="` + infoProducto.images[img] + `" class="d-block w-80" alt="` + infoProducto.name + `">
             </div>
             `
         }
+
+        for (let element of infoProducto.relatedProducts) {
+            contentHolder +=
+                `<div class="card text-center bg-light mt-2 my-auto">
+                        <h4 class="card-title">` + addedContent[element].name + `</h4>
+                        <p class="card-text">` + addedContent[element].description + `</p>
+                        <p class="price">` + addedContent[element].currency + ` ` + addedContent[element].cost +`</p>
+                        <img class="img-fluid img-thumbnail" src="` + addedContent[element].imgSrc + `" alt="` + addedContent[element].name + `">
+                        <a href="products.html" class="btn btn-dark" style="width: 100%;">Ver</a>
+                        </div>`;
+        }
+        document.getElementById("relatedProducts").innerHTML += contentHolder;
         })
     .catch( error => alert("Hubo un error: " + error));
-} 
+}
 
 chargeProductCommentsInfo = (url) => {
     fetch(url)
@@ -181,7 +223,7 @@ submitComment = () => {
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    chargeProductInfo(PRODUCT_INFO_URL);
+    chargeProductInfo(PRODUCT_INFO_URL, PRODUCTS_URL);
     chargeProductCommentsInfo(PRODUCT_INFO_COMMENTS_URL);
 });
 
@@ -192,7 +234,7 @@ document.getElementById("submitComment").addEventListener("click", function(even
 
 document.getElementById("1Star").addEventListener("click", function(event) {
     numRate(this);
-})
+}) 
 
 document.getElementById("2Star").addEventListener("click", function(event) {
     numRate(this);

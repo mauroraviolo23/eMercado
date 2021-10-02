@@ -40,10 +40,22 @@ var getJSONData = function(url){
     });
 }
 
-var mostrarUsuario = () => {
+/* const mostrarUsuario = () => {
   document.getElementById("contLinksNavBar").innerHTML += `<p class="mostrarUsuario" id="mostrarUsuario">Usuario: </p>`;
   document.getElementById("mostrarUsuario").innerHTML += (JSON.parse(localStorage.getItem("soloNombreUsuario")));
+}; */
+
+const mostrarUsuario = () => {
+  document.getElementById("mostrarUsuario").innerHTML = `<i class="fas fa-user mr-2"></i>`+ (JSON.parse(localStorage.getItem("soloNombreUsuario")))  + ` `;
 };
+
+const borrarUsuario = () => {
+  localStorage.clear();
+  window.location = "login.html"
+}
+
+
+
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -55,3 +67,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     mostrarUsuario();
   }
 });
+
+document.getElementById("cerrarSesion").addEventListener("click", function(e) {
+  borrarUsuario();
+  alert("Se ha cerrado sesión. Gracias por visitar eMercado. Serás redirigido a la pantalla de registro.")
+})

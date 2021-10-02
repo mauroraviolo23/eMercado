@@ -23,7 +23,8 @@ const guardarUsuario = () => {
     localStorage.setItem("datosUsuario", JSON.stringify(usuarioContraseña));
     localStorage.setItem("soloNombreUsuario", JSON.stringify(soloNombreUsuario))
     window.location = "index.html";
-  } else {
+    }
+  else {
     alert("Ingrese los datos correctamente");
   }
 };
@@ -31,5 +32,14 @@ const guardarUsuario = () => {
 
 document.addEventListener("DOMContentLoaded", function(e){
 	document.getElementById("btnLogin").addEventListener("click", guardarUsuario);
-  	// document.getElementById("btnLogin").addEventListener("click", "OTRA FUNCIÓN");
+  document.getElementById("nombreUsuario").addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      guardarUsuario();
+    }
+});
+  document.getElementById("passwordUsuario").addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      guardarUsuario();
+    }
+});
 });
