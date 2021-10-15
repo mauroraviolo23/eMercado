@@ -40,11 +40,6 @@ var getJSONData = function(url){
     });
 }
 
-/* const mostrarUsuario = () => {
-  document.getElementById("contLinksNavBar").innerHTML += `<p class="mostrarUsuario" id="mostrarUsuario">Usuario: </p>`;
-  document.getElementById("mostrarUsuario").innerHTML += (JSON.parse(localStorage.getItem("soloNombreUsuario")));
-}; */
-
 const mostrarUsuario = () => {
   document.getElementById("mostrarUsuario").innerHTML = `<i class="fas fa-user mr-2"></i>`+ (JSON.parse(localStorage.getItem("soloNombreUsuario")))  + ` `;
 };

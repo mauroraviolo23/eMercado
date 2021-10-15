@@ -1,7 +1,7 @@
-var goldStar = `<span class="fa fa-star checked"></span>`;
-var blackStar = `<span class="fa fa-star"></span>`;
+const goldStar = `<span class="fa fa-star checked"></span>`;
+const blackStar = `<span class="fa fa-star"></span>`;
 
-var starCounter;
+let starCounter;
 function rate(item) {
     starCounter = item.id[0]; //primer caracter del Id
     let starName = item.id.substring(1); //caracteres luego del primero
@@ -211,7 +211,7 @@ submitComment = () => {
     }
     document.getElementById("addComment").value = '';
     document.getElementById("numberRate").value = 5;
-    var starIdList = ["1Star", "2Star", "3Star", "4Star", "5Star"];
+    let starIdList = ["1Star", "2Star", "3Star", "4Star", "5Star"];
     for (let s = 0; s < starIdList.length; s++) {
         document.getElementById(starIdList[s]).className = "ml-1 fa fa-star";
     }

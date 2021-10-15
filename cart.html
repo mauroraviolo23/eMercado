@@ -43,7 +43,7 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <button id="mostrarUsuario" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-user">No ha iniciado sesión</i>
+        <i class="fas fa-user"></i>
       </button>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="cart.html">Mi carrito</a>
@@ -54,19 +54,96 @@
     </div>
   </nav>
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 17/10/2021) y Entrega 7 (Fecha de entrega: 14/11/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <h3>Mi carrito</h3>
+    <div id="cart">
+      <table class="table text-left">
+        <thead>
+            <tr>
+              <th><i class="fas fa-image fa-lg mr-2"></i>Imagen</th>
+              <th scope="col">Nombre del Articulo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Costo Unitario<!--<button id="uyu" class="currencyButton">UYU</button><button id="usd" class="currencyButton">USD</button>--></th>
+              <th scope="col">Costo Total Por Artículo</th>
+              <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="articlesTable">
+        </tbody>
+      </table>
     </div>
-  </div>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <div id="opcionesCompra" >
+      <form class="opcionesCompra">
+        <label for="tipoEnvio">Tipo de envío:</label>
+        <select name="tipoEnvio" id="tipoEnvio">
+          <option value="seleccionarEnvio" disabled selected aria-required="true">Seleccionar</option>
+          <option value="premium">Premium</option>
+          <option value="express">Express</option>
+          <option value="standard">Standard</option>
+        </select>
+        <i id="iconoInfoEnvio" class="fas fa-info-circle fa-lg m-1"></i>
+        <p id="inf" class="visible">Información del envío</p>
+        <p id="pre" class="invisible">
+          Los envíos <b>Premium</b> tienen un plazo de <b>2 a 5 días</b> y un costo del <b>15% sobre el costo total de la compra</b>.          
+        </p>
+        <p id="exp" class="invisible">
+          Los envíos <b>Express</b> tienen un plazo de <b>5 a 8 días</b> y un costo del <b>8% sobre el costo total de la compra</b>.
+        </p>
+        <p id="sta" class="invisible">
+          Los envíos <b>Standard</b> tienen un plazo de <b>12 a 15 días</b> y un costo del <b>5% sobre el costo total de la compra</b>.
+        </p>
+        <br>
+        <label for="formaPago">Forma de pago:</label>
+        <select name="formaPago" id="formaPago" aria-required="true">
+          <option value="seleccionarPago" disabled selected>Seleccionar</option>
+          <option value="tarjeta">Tarjeta de Crédito</option>
+          <option value="transferencia">Transferencia Bancaria</option>
+        </select>
+        <br>
+        <div id="formaPagoTarjeta" class="invisible">
+          <label  for="tarjeta">Número de Tarjeta:</label>
+          <input  type="number" name="tarjeta" id="tarjeta">
+          <label  for="vencimiento">Fecha de Vencimiento:</label>
+          <input  type="date" name="vencimiento" id="vencimiento">
+          <label  for="códigoSeguridad">Código de Seguridad:</label>
+          <input  type="number" name="códigoSeguridad" id="códigoSeguridad">
+        </div>
+        <div id="formaPagoTransferencia" class="invisible">
+          <label for="elegirBanco">Seleccionar Banco:</label>
+          <select name="elegirBanco" id="elegirBanco">
+            <option value="seleccionar" disabled selected>Seleccionar</option>
+            <option value="itau">Banco Itau</option>
+            <option value="brou">Banco República</option>
+            <option value="santander">Banco Santander</option>
+            <option value="scotia">Scotia Bank</option>
+          </select>
+          <label  for="nombreTitular">Nombre del Titular:</label>
+          <input  type="text" name="nombreTitular" id="nombreTitular">
+          <label  for="númeroDeCuenta">Número de Cuenta:</label>
+          <input  type="number" name="númeroDeCuenta" id="númeroDeCuenta">
+        </div>          
+      </form>
+    </div>
+    <div>
+      <table class="table text-left">
+        <thead>
+          <tr>
+            <th scope="col">¿En qué moneda deseas pagar?</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Costo de Envío</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><button id="compraPesos" class="btn btn-dark m-1">Pesos Uruguayos (UYU)</button>
+              <button id="compraDolares" class="btn btn-dark m-1">Dólares (USD)</button>
+            </td>
+            <td id="subtotal"></td>
+            <td id="costoEnvío"></td>
+            <td id="total"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <script src="js/jquery-3.4.1.min.js"></script>
