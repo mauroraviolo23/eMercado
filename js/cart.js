@@ -1,5 +1,6 @@
 const DOUBLE_CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/654.json";
-
+let totalPriceUYU = 0;
+let totalPriceUSD = 0;
 chargeCartInfo = (url) => {
     fetch(url)
     .then(respuesta=>respuesta.json())
@@ -17,11 +18,15 @@ chargeCartInfo = (url) => {
                 <i onclick="quantAndPriceChanger(this,'productCount`+ [i+1] +`','ProductTotalCostUYU`+ [i+1] +`','ProductTotalCostUSD`+ [i+1] +`',` + article[i].unitCost + `,'` + article[i].currency +`')" class="fas fa-minus-circle ml-1 clickable"></i></td>
                 `//finaliza bloque de Cantidad
                 + `
-                <td><table><tr><td id='ProductPriceUYU`+ [i+1] +`'>` + priceCurrencyUYU(article[i].currency, article[i].unitCost) + `<small class="text-muted"> UYU</small></td><td id='ProductPriceUSD`+ [i+1] +`'>` + priceCurrencyUSD(article[i].currency, article[i].unitCost) + `<small class="text-muted"> USD</small></td></tr></table></td>
-                <td><table><tr><td id='ProductTotalCostUYU`+ [i+1] +`'>` + (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count) + `<small class="text-muted"> UYU</small></td><td id='ProductTotalCostUSD`+ [i+1] +`'>` + (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count) + `<small class="text-muted"> USD</small></td></tr></table></td>
+                <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='ProductPriceUYU`+ [i+1] +`'>` + priceCurrencyUYU(article[i].currency, article[i].unitCost) + `</td><td id='ProductPriceUSD`+ [i+1] +`'>` + priceCurrencyUSD(article[i].currency, article[i].unitCost) + `</td></tr></table></td>
+                <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='ProductTotalCostUYU`+ [i+1] +`'>` + (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count) + `</td><td id='ProductTotalCostUSD`+ [i+1] +`'>` + (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count) + `</td></tr></table></td>
                 <td><i onclick="removeItemFromCart('productBlock`+ [i+1] +`')" class="fas fa-times-circle clickable"></i></td>
             </tr>
-            `;
+            `
+            totalPriceUSD += (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count);
+            totalPriceUYU += (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count);
+            document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
+            document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
         }
     }
     )
@@ -33,38 +38,51 @@ quantAndPriceChanger = (element, idCount, idCostUYU, idCostUSD, cost, currency) 
         if (element.className == "fas fa-plus-circle mr-1 clickable"){
             if(currency == "UYU") {
                 document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) + 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost) + `<small class="text-muted"> UYU</small>`;
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + (cost/40)) + `<small class="text-muted"> USD</small>`;
+                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost);
+                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + (cost/40));
+                totalPriceUYU += cost
+                totalPriceUSD += cost/40
+                document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
+                document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
             }
             else if(currency == "USD") {
                 document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) + 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost*40) + `<small class="text-muted"> UYU</small>`;
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + cost) + `<small class="text-muted"> USD</small>`;
+                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost*40);
+                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + cost);
+                totalPriceUYU += cost*40
+                totalPriceUSD += cost
+                document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
+                document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
             }
         }
         else if (element.className == "fas fa-minus-circle ml-1 clickable"){
             if(currency == "UYU") {
-                document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost) + `<small class="text-muted"> UYU</small>`;
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - (cost/40)) + `<small class="text-muted"> USD</small>`;
-                if (document.getElementById(idCount).innerHTML < 1) {
-                    alert(`El mínimo de cantidad a llevar es 1. Si deseas quitar este artículo de tu carrito, haz click sobre la X que se encuentra hacia la derecha.`)
-                    document.getElementById(idCount).innerHTML = 1;
-                    document.getElementById(idCostUYU).innerHTML = cost + `<small class="text-muted"> UYU</small>`;
-                    document.getElementById(idCostUSD).innerHTML = cost/40 + `<small class="text-muted"> USD</small>`;
-                    
-                    }
+                if (document.getElementById(idCount).innerHTML > 1) {
+                    document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
+                    document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost);
+                    document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - (cost/40));
+                    totalPriceUYU -= cost
+                    totalPriceUSD -= cost/40
+                    document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
+                    document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
+                }
+                else {
+                    alert("Si deseas quitar este artículo de tu carrito haz click sobre la X que se encuentra hacia la derecha.")
+                }
             }
             else if(currency == "USD") {
+                if(document.getElementById(idCount).innerHTML > 1) {
                 document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost*40) + `<small class="text-muted"> UYU</small>`;
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - cost) + `<small class="text-muted"> USD</small>`;
-                if (document.getElementById(idCount).innerHTML < 1) {
-                    alert(`El mínimo de cantidad a llevar es 1. Si deseas quitar este artículo de tu carrito, haz click sobre la X que se encuentra hacia la derecha.`)
-                    document.getElementById(idCount).innerHTML = 1;
-                    document.getElementById(idCostUYU).innerHTML = cost*40 + `<small class="text-muted"> UYU</small>`;
-                    document.getElementById(idCostUSD).innerHTML = cost + `<small class="text-muted"> USD</small>`
-                    }
+                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost*40);
+                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - cost);
+                totalPriceUYU -= cost*40
+                totalPriceUSD -= cost
+                document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
+                document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
+                }
+                else {
+                    alert("Si deseas quitar este artículo de tu carrito haz click sobre la X que se encuentra hacia la derecha.")
+                }
             }
         }
 }

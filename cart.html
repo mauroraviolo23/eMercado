@@ -129,16 +129,29 @@
           <tr>
             <th scope="col">¿En qué moneda deseas pagar?</th>
             <th scope="col">Subtotal</th>
+            <th scope="col"></th>
             <th scope="col">Costo de Envío</th>
             <th scope="col">Total</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><button id="compraPesos" class="btn btn-dark m-1">Pesos Uruguayos (UYU)</button>
+            <td>
+              <button id="compraPesos" class="btn btn-dark m-1">Pesos Uruguayos (UYU)</button>
               <button id="compraDolares" class="btn btn-dark m-1">Dólares (USD)</button>
             </td>
-            <td id="subtotal"></td>
+            <td>
+              <table>
+                <tr>
+                  <td id="subtotalUYU"></td>
+                  <td>Pesos Uruguayos</td>
+                </tr>
+                <tr>
+                  <td id="subtotalUSD"></td>
+                  <td>Dólares</td>
+                </tr>
+              </table>
+            </td>
             <td id="costoEnvío"></td>
             <td id="total"></td>
           </tr>
