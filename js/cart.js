@@ -1,6 +1,9 @@
 const DOUBLE_CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/654.json";
-let totalPriceUYU = 0;
-let totalPriceUSD = 0;
+let subtotalPriceUYU = 0;
+let subtotalPriceUSD = 0;
+let shippingCostUYU = 0;
+let shippingCostUSD = 0;
+
 chargeCartInfo = (url) => {
     fetch(url)
     .then(respuesta=>respuesta.json())
@@ -13,20 +16,20 @@ chargeCartInfo = (url) => {
                 <td>` + article[i].name + `</td>
                 `//las siguientes líneas de código son para el bloque de Cantidad 
                 + `
-                <td><i onclick="quantAndPriceChanger(this,'productCount`+ [i+1] +`','ProductTotalCostUYU`+ [i+1] +`','ProductTotalCostUSD`+ [i+1] +`',` + article[i].unitCost + `,'` + article[i].currency + `')" class="fas fa-plus-circle mr-1 clickable"></i>
+                <td><i onclick="quantAndPriceChanger(this,'productCount`+ [i+1] +`','productTotalCostUYU`+ [i+1] +`','productTotalCostUSD`+ [i+1] +`',` + article[i].unitCost + `,'` + article[i].currency + `')" class="fas fa-plus-circle mr-1 clickable"></i>
                 <span class="font-weight-bold" id='productCount`+ [i+1] +`'>` + article[i].count + `</span>
-                <i onclick="quantAndPriceChanger(this,'productCount`+ [i+1] +`','ProductTotalCostUYU`+ [i+1] +`','ProductTotalCostUSD`+ [i+1] +`',` + article[i].unitCost + `,'` + article[i].currency +`')" class="fas fa-minus-circle ml-1 clickable"></i></td>
+                <i onclick="quantAndPriceChanger(this,'productCount`+ [i+1] +`','productTotalCostUYU`+ [i+1] +`','productTotalCostUSD`+ [i+1] +`',` + article[i].unitCost + `,'` + article[i].currency +`')" class="fas fa-minus-circle ml-1 clickable"></i></td>
                 `//finaliza bloque de Cantidad
                 + `
-                <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='ProductPriceUYU`+ [i+1] +`'>` + priceCurrencyUYU(article[i].currency, article[i].unitCost) + `</td><td id='ProductPriceUSD`+ [i+1] +`'>` + priceCurrencyUSD(article[i].currency, article[i].unitCost) + `</td></tr></table></td>
-                <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='ProductTotalCostUYU`+ [i+1] +`'>` + (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count) + `</td><td id='ProductTotalCostUSD`+ [i+1] +`'>` + (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count) + `</td></tr></table></td>
-                <td><i onclick="removeItemFromCart('productBlock`+ [i+1] +`')" class="fas fa-times-circle clickable"></i></td>
+                <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='productPriceUYU`+ [i+1] +`'>` + priceCurrencyUYU(article[i].currency, article[i].unitCost) + `</td><td id='productPriceUSD`+ [i+1] +`'>` + priceCurrencyUSD(article[i].currency, article[i].unitCost) + `</td></tr></table></td>
+                <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='productTotalCostUYU`+ [i+1] +`'>` + (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count) + `</td><td id='productTotalCostUSD`+ [i+1] +`'>` + (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count) + `</td></tr></table></td>
+                <td><i onclick="removeItemFromCart('productBlock`+ [i+1] +`','productTotalCostUYU` + [i+1] +`')" class="fas fa-times-circle clickable"></i></td>
             </tr>
             `
-            totalPriceUSD += (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count);
-            totalPriceUYU += (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count);
-            document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
-            document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
+            subtotalPriceUYU += (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count);
+            subtotalPriceUSD += (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count);
+            document.getElementById("subtotalUYU").innerHTML = subtotalPriceUYU;
+            document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
         }
     }
     )
@@ -35,56 +38,147 @@ chargeCartInfo = (url) => {
 
 // función que actualiza cantidad y precio de cada artículo
 quantAndPriceChanger = (element, idCount, idCostUYU, idCostUSD, cost, currency) => {
-        if (element.className == "fas fa-plus-circle mr-1 clickable"){
-            if(currency == "UYU") {
-                document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) + 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost);
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + (cost/40));
-                totalPriceUYU += cost
-                totalPriceUSD += cost/40
-                document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
-                document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
+    if (element.className == "fas fa-plus-circle mr-1 clickable"){
+        if(currency == "UYU") {
+            document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) + 1;
+            document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost);
+            document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + (cost/40));
+            subtotalPriceUYU += cost
+            subtotalPriceUSD += cost/40
+            document.getElementById("subtotalUYU").innerHTML = subtotalPriceUYU;
+            document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
+            if(document.getElementById("tipoEnvio").value == "premium"){
+                shippingCostUYU = subtotalPriceUYU*0.15
+                shippingCostUSD = subtotalPriceUSD*0.15
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
             }
-            else if(currency == "USD") {
-                document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) + 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost*40);
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + cost);
-                totalPriceUYU += cost*40
-                totalPriceUSD += cost
-                document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
-                document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
+            else if(document.getElementById("tipoEnvio").value == "express"){
+                shippingCostUYU = subtotalPriceUYU*0.08
+                shippingCostUSD = subtotalPriceUSD*0.08
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
             }
-        }
-        else if (element.className == "fas fa-minus-circle ml-1 clickable"){
-            if(currency == "UYU") {
-                if (document.getElementById(idCount).innerHTML > 1) {
-                    document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
-                    document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost);
-                    document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - (cost/40));
-                    totalPriceUYU -= cost
-                    totalPriceUSD -= cost/40
-                    document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
-                    document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
-                }
-                else {
-                    alert("Si deseas quitar este artículo de tu carrito haz click sobre la X que se encuentra hacia la derecha.")
-                }
-            }
-            else if(currency == "USD") {
-                if(document.getElementById(idCount).innerHTML > 1) {
-                document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
-                document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost*40);
-                document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - cost);
-                totalPriceUYU -= cost*40
-                totalPriceUSD -= cost
-                document.getElementById("subtotalUYU").innerHTML = totalPriceUYU;
-                document.getElementById("subtotalUSD").innerHTML = totalPriceUSD;
-                }
-                else {
-                    alert("Si deseas quitar este artículo de tu carrito haz click sobre la X que se encuentra hacia la derecha.")
-                }
+            else if(document.getElementById("tipoEnvio").value == "standard"){
+                shippingCostUYU = subtotalPriceUYU*0.05
+                shippingCostUSD = subtotalPriceUSD*0.05
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
             }
         }
+        else if(currency == "USD") {
+            document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) + 1;
+            document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) + cost*40);
+            document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) + cost);
+            subtotalPriceUYU += cost*40
+            subtotalPriceUSD += cost
+            document.getElementById("subtotalUYU").innerHTML = subtotalPriceUYU;
+            document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
+            if(document.getElementById("tipoEnvio").value == "premium"){
+                shippingCostUYU = subtotalPriceUYU*0.15
+                shippingCostUSD = subtotalPriceUSD*0.15
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD; 
+            }
+            else if(document.getElementById("tipoEnvio").value == "express"){
+                shippingCostUYU = subtotalPriceUYU*0.08
+                shippingCostUSD = subtotalPriceUSD*0.08
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+            }
+            else if(document.getElementById("tipoEnvio").value == "standard"){
+                shippingCostUYU = subtotalPriceUYU*0.05
+                shippingCostUSD = subtotalPriceUSD*0.05
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+            }
+        }
+    }
+    else if (element.className == "fas fa-minus-circle ml-1 clickable"){
+        if(currency == "UYU" && document.getElementById(idCount).innerHTML > 1){
+            document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
+            document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost);
+            document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - (cost/40));
+            subtotalPriceUYU -= cost
+            subtotalPriceUSD -= cost/40
+            document.getElementById("subtotalUYU").innerHTML = subtotalPriceUYU;
+            document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
+            if(document.getElementById("tipoEnvio").value == "premium"){
+                shippingCostUYU = subtotalPriceUYU*0.15
+                shippingCostUSD = subtotalPriceUSD*0.15
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD; 
+            }
+            else if(document.getElementById("tipoEnvio").value == "express"){
+                shippingCostUYU = subtotalPriceUYU*0.08
+                shippingCostUSD = subtotalPriceUSD*0.08
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD; 
+            }
+            else if(document.getElementById("tipoEnvio").value == "standard"){
+                shippingCostUYU = subtotalPriceUYU*0.05
+                shippingCostUSD = subtotalPriceUSD*0.05
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD; 
+            }
+        }
+        else if(currency == "USD" && document.getElementById(idCount).innerHTML > 1){
+            document.getElementById(idCount).innerHTML = parseInt(document.getElementById(idCount).innerHTML) - 1;
+            document.getElementById(idCostUYU).innerHTML = (parseInt(document.getElementById(idCostUYU).innerHTML) - cost*40);
+            document.getElementById(idCostUSD).innerHTML = (parseFloat(document.getElementById(idCostUSD).innerHTML) - cost);
+            subtotalPriceUYU -= cost*40
+            subtotalPriceUSD -= cost
+            document.getElementById("subtotalUYU").innerHTML = subtotalPriceUYU;
+            document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
+            document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+            document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+            if(document.getElementById("tipoEnvio").value == "premium"){
+                shippingCostUYU = subtotalPriceUYU*0.15
+                shippingCostUSD = subtotalPriceUSD*0.15
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+            }
+            else if(document.getElementById("tipoEnvio").value == "express"){
+                shippingCostUYU = subtotalPriceUYU*0.08
+                shippingCostUSD = subtotalPriceUSD*0.08
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+            }
+            else if(document.getElementById("tipoEnvio").value == "standard"){
+                shippingCostUYU = subtotalPriceUYU*0.05
+                shippingCostUSD = subtotalPriceUSD*0.05
+                document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+                document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD; 
+                document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+                document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+            }
+        }
+        else{
+            alert("Si deseas quitar este artículo de tu carrito haz click sobre la X que se encuentra hacia la derecha.")
+        }
+    }
 }
 
 // func que muestra el precio en pesos uruguayos
@@ -107,9 +201,39 @@ priceCurrencyUSD = (currency, cost) => {
     }
 }
 
-// función que elimina el artículo del carrito
-removeItemFromCart = id => {
-    document.getElementById(id).remove();
+// función que elimina el artículo del carrito y quita su precio del subtotal y total
+removeItemFromCart = (idBlock, idTotalPrice) => {
+    subtotalPriceUYU -= document.getElementById(idTotalPrice).innerHTML;
+    subtotalPriceUSD -= document.getElementById(idTotalPrice).innerHTML/40;
+    document.getElementById("subtotalUYU").innerHTML = subtotalPriceUYU;
+    document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
+    document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+    document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+    if(document.getElementById("tipoEnvio").value == "premium"){
+        shippingCostUYU -= document.getElementById(idTotalPrice).innerHTML*0.15;
+        shippingCostUSD -= (document.getElementById(idTotalPrice).innerHTML/40)*0.15;
+        document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU;
+        document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+        document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+        document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+    }
+    else if(document.getElementById("tipoEnvio").value == "express"){
+        shippingCostUYU -= document.getElementById(idTotalPrice).innerHTML*0.08;
+        shippingCostUSD -= (document.getElementById(idTotalPrice).innerHTML/40)*0.08;
+        document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU;
+        document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+        document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+        document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+    }
+    else if(document.getElementById("tipoEnvio").value == "standard"){
+        shippingCostUYU -= document.getElementById(idTotalPrice).innerHTML*0.05;
+        shippingCostUSD -= (document.getElementById(idTotalPrice).innerHTML/40)*0.05;
+        document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU;
+        document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+        document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+        document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
+    }
+    document.getElementById(idBlock).remove();
 }
 
 // expresiones para shippingInfo
@@ -119,24 +243,43 @@ let exp = document.getElementById("exp");
 let sta = document.getElementById("sta");
 let inf = document.getElementById("inf");
 
+// función que muestra la información de cada tipo de envío y actualiza el costo de Envío
 shippingInfo = () => {
     if (tipoEnvio.value == "premium"){
-        pre.className = "visible"
-        inf.className = "invisible"
-        exp.className = "invisible"
+        pre.className = "visible";
+        inf.className = "invisible";
+        exp.className = "invisible";
         sta.className = "invisible";
+        shippingCostUYU = subtotalPriceUYU*0.15;
+        shippingCostUSD = subtotalPriceUSD*0.15;
+        document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+        document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+        document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+        document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
         }
     else if (tipoEnvio.value  == "express"){
-        exp.className = "visible"
-        inf.className = "invisible"
-        pre.className = "invisible"
+        exp.className = "visible";
+        inf.className = "invisible";
+        pre.className = "invisible";
         sta.className = "invisible";
+        shippingCostUYU = subtotalPriceUYU*0.08;
+        shippingCostUSD = subtotalPriceUSD*0.08;
+        document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+        document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+        document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+        document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
         }
     else if (tipoEnvio.value == "standard"){
-        sta.className = "visible"
-        inf.className = "invisible"
-        pre.className = "invisible"
+        sta.className = "visible";
+        inf.className = "invisible";
+        pre.className = "invisible";
         exp.className = "invisible";
+        shippingCostUYU = subtotalPriceUYU*0.05;
+        shippingCostUSD = subtotalPriceUSD*0.05;
+        document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU; 
+        document.getElementById("costoEnvioUSD").innerHTML = shippingCostUSD;
+        document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
+        document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
         }
 }
 

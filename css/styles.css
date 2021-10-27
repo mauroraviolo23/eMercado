@@ -253,18 +253,6 @@ div#starContainer:first-child {
   height: 100px;
 }
 
-.currencyButton {
-  font-size: 0.75em;
-  color: #fff;
-  background-color: black;
-  margin: 1px;
-  border-radius: 15%;
-}
-
-.currencyButton:hover {
-  background-color: rgb(104, 103, 103);
-}
-
 .OpcionesCompra {
   display: inline;
   border-top: 5px solid black;
@@ -306,4 +294,94 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.small-text {
+  font-size: 0.8em;
+}
+
+/* clases página my-profile */
+
+.principal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.profile-container-border {
+  border-radius: 1%;
+}
+
+.profile-container {
+  width: 50vw;
+  background-color: #343A40;
+  color: #fff;
+}
+
+.profile-container-header {
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 1;
+  padding: 1%;
+}
+
+.profile-container-header-userimage {
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgb(43, 42, 42);
+}
+
+.profile-container-header-edit {
+  max-height: 50%;
+  margin-left: auto;
+  margin-top: auto;
+  border: 1px solid rgb(43, 42, 42);
+  border-radius: .25rem;
+  background-color: #6c757d;
+  font-size: 0.9em;
+  color: #fff;
+  padding: .50rem;
+}
+
+.profile-container-header-edit:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.profile-container-userdata {
+  background-color: rgb(43, 42, 42);
+}
+
+.profile-container-userdata-eachdata {
+  border-bottom: 1px solid #fff;
+  box-sizing: border-box;
+}
+
+.profile-container-form {
+ background-color:rgb(43, 42, 42);
+ margin: auto;
+ color: #fff;
+}
+
+.edit-button-cancel {
+  border-radius: .25rem;
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+  font-weight: bold;
+}
+
+.edit-button-cancel:hover {
+  background-color: rgb(202, 0, 0);
+}
+
+.edit-button-accept {
+  margin-left: .65em;
+  border-radius: .25rem;
+  background-color: rgb(67, 223, 6);
+  color: #fff;
+  font-weight: bold;
+}
+
+.edit-button-accept:hover {
+  background-color: rgb(47, 165, 0);
 }

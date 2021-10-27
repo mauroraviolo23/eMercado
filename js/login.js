@@ -3,11 +3,10 @@
 //elementos HTML presentes.
 
 
-const usuarioContraseña = [];
-const soloNombreUsuario = [];
+let usuarioContraseña = [];
+let soloNombreUsuario = [];
 
 const guardarUsuario = () => {
-  const tbody = document.getElementById("info");
   const nombreUsuario = document.getElementById("nombreUsuario");
   const passwordUsuario = document.getElementById("passwordUsuario");
   const nombre = nombreUsuario.value;

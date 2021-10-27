@@ -42,7 +42,8 @@
       <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <button id="mostrarUsuario" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button id="mostrarUsuario" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-user"></i>
       </button>
       <div class="dropdown-menu">
@@ -54,14 +55,58 @@
     </div>
   </nav>
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 6 (Fecha de entrega: 31/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <h3>Mi perfil</h3>
+    <div class="principal">
+      <div class="profile-container profile-container-border">
+        <div class="profile-container-header profile-container-border">
+          <img src="img/default-user-image.png" class="profile-container-header-userimage" alt="Foto de Usuario">
+          <div class="profile-container-header">
+            <h4 id="misDatos-NombreUsuario" class="mt-auto ml-1">Nombre de Usuario</h4>
+            <button id="editarPerfil" class="profile-container-header-edit"><i class="fas fa-cog mr-1"></i>Editar
+              perfil</button>
+          </div>
+        </div>
+        <div class="profile-container-userdata profile-container-border">
+          <div class="profile-container-userdata-eachdata">
+            <h5>Nombres y Apellidos</h5>
+            <p id="misDatos-NombresApellidos"></p>
+          </div>
+          <div class="profile-container-userdata-eachdata">
+            <h5>Edad</h5>
+            <p id="misDatos-Edad"></p>
+          </div>
+          <div class="profile-container-userdata-eachdata">
+            <h5>E-mail</h5>
+            <p id="misDatos-Email"></p>
+          </div>
+          <div class="profile-container-userdata-eachdata">
+            <h5>Teléfono de Contacto</h5>
+            <p id="misDatos-TelefonoContacto"></p>
+          </div>
+        </div>
+      </div>
+      <div id="bloqueEditarPerfil" class="invisible">
+        <div>
+          <h4>Editar perfil</h4>
+        </div>
+        <div>
+          <form action="#">
+            <label for="nombre">Nombres y Apellidos:</label><br>
+            <input type="text" id="nombre" name="nombre"><br>
+            <label for="edad">Edad:</label><br>
+            <input type="number" id="edad" name="edad"><br>
+            <label for="email">E-mail:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="telefono">Teléfono de Contacto:</label><br>
+            <input type="number" id="telefono" name="telefono"><br>
+            <input type="submit" id="aceptar" class="edit-button-accept" value="Aceptar">
+            <button id="cancelar" class="edit-button-cancel">Cancelar</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  <footer class="text-muted bg-light">
+  <footer class="text-muted bg-light mt-3">
     <div class="container">
       <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
@@ -87,5 +132,4 @@
   <script src="js/init.js"></script>
   <script src="js/my-profile.js"></script>
 </body>
-
 </html>
