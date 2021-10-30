@@ -44,23 +44,36 @@ function showProductsList(){
         if (((minPrice == undefined) || (minPrice != undefined && parseInt(product.cost) >= minPrice)) &&
             ((maxPrice == undefined) || (maxPrice != undefined && parseInt(product.cost) <= maxPrice))){
 
-            htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+
+                htmlContentToAppend += `
+                <div class="col-sm-4 border border-dark mb-1 mr-1">
+                    <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4>`+ product.name +`</h4>
+                        <hr class="linea">
+                        <small class="text-muted">` + product.soldCount + ` vendidos</small>
                     </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ product.name +`</h4>
-                            <small class="text-muted">` + product.soldCount + ` vendidos</small>
-                        </div>
-                        <p class="mb-1">` + product.description + `</p>
-                        <p class="mt-5 text-muted">`+ product.currency + ` ` + product.cost + `</p>
-                    </div>
+                    <p class="mb-1">` + product.description + `</p>
+                    <p class="text-muted">`+ product.currency + ` ` + product.cost + `</p>
                 </div>
-            </a>
-            `
+                `
+            // htmlContentToAppend += `
+            // <a href="product-info.html" class="list-group-item list-group-item-action">
+            //     <div class="row">
+            //         <div class="col-3">
+            //             <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+            //         </div>
+            //         <div class="col">
+            //             <div class="d-flex w-100 justify-content-between">
+            //                 <h4 class="mb-1">`+ product.name +`</h4>
+            //                 <small class="text-muted">` + product.soldCount + ` vendidos</small>
+            //             </div>
+            //             <p class="mb-1">` + product.description + `</p>
+            //             <p class="mt-5 text-muted">`+ product.currency + ` ` + product.cost + `</p>
+            //         </div>
+            //     </div>
+            // </a>
+            // `
         }
 
         document.getElementById("contProductos").innerHTML = htmlContentToAppend;

@@ -148,15 +148,7 @@ a.custom-card:hover {
 
 
 /* clases página products*/
-.cajaProducto {
-  border: 1px solid #000;
-  background-color: rgb(204, 204, 204);
-}
 
-.tituloAuto {
-  font-size: 1.2em;
-  font-weight: bold;
-}
 
 /* clases página product-info*/
 #addComment {
