@@ -266,13 +266,14 @@ div#starContainer:first-child {
   cursor: pointer;
 }
 
-.invisible {
-  display: none;
+.divsConfigCarrito {
+  padding: .5%;
+  background-color: #343A40;
+  border-radius: .25rem;
 }
 
-.visible {
-  display: inline;
-  font-size: 0.85em;
+.iconosCarrito {
+  color: #fff;
 }
 
 /* Quitar flechas de input type:number */
@@ -376,4 +377,15 @@ input[type=number] {
 
 .edit-button-accept:hover {
   background-color: rgb(47, 165, 0);
+}
+
+/* clases visibilidad */
+
+.invisible {
+  display: none;
+}
+
+.visible {
+  display: inline;
+  font-size: 0.85em;
 }

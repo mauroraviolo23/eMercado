@@ -62,7 +62,7 @@
               <th><i class="fas fa-image fa-lg mr-2"></i>Imagen</th>
               <th scope="col">Nombre del Articulo</th>
               <th scope="col">Cantidad</th>
-              <th scope="col">Costo Unitario<!--<button id="uyu" class="currencyButton">UYU</button><button id="usd" class="currencyButton">USD</button>--></th>
+              <th scope="col">Costo Unitario</th>
               <th scope="col">Costo Total Por Artículo</th>
               <th scope="col"></th>
             </tr>
@@ -71,63 +71,120 @@
         </tbody>
       </table>
     </div>
+    <div id="direccionCompra" class="bg-dark text-white rounded mb-1 p-1">
+      <label for="direccionCalle">Calle:</label>
+      <input type="text" name="direccionCalle" id="direccionCalle">
+      <label for="numeroPuerta">Número de Puerta:</label>
+      <input type="number" name="numeroPuerta" id="numeroPuerta" class="col-xs-2" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="width: 50px;">
+      <label for="bis">Bis:</label>
+      <input type="checkbox" name="bis" id="bis">
+      <label for="numeroApto">Número de Apartamento:</label>  
+      <input type="number" name="numeroApto" id="numeroApto" cols="4" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" style="width: 50px;">
+      <label for="direccionEsquina">Esquina:</label>
+      <input type="text" name="direccionEsquina" id="direccionEsquina"><br>
+      <label for="pais">País:</label>
+      <select name="pais" id="pais">
+        <option value="uru" selected>Uruguay</option>
+        <option value="arg">Argentina</option>
+        <option value="bra">Brasil</option>
+      </select>
+      <label for="departamento">Departamento:</label>
+      <input type="text" name="departamento" id="departamento">
+      <label for="barrio">Barrio:</label>
+      <input type="text" name="barrio" id="barrio">
+    </div>
     <div id="opcionesCompra" >
       <form class="opcionesCompra">
-        <label for="tipoEnvio">Tipo de envío:</label>
-        <select name="tipoEnvio" id="tipoEnvio">
-          <option value="seleccionarEnvio" disabled selected aria-required="true">Seleccionar</option>
-          <option value="premium">Premium</option>
-          <option value="express">Express</option>
-          <option value="standard">Standard</option>
-        </select>
-        <i id="iconoInfoEnvio" class="fas fa-info-circle fa-lg m-1"></i>
-        <p id="inf" class="visible">Información del envío</p>
-        <p id="pre" class="invisible">
-          Los envíos <b>Premium</b> tienen un plazo de <b>2 a 5 días</b> y un costo del <b>15% sobre el costo total de la compra</b>.          
-        </p>
-        <p id="exp" class="invisible">
-          Los envíos <b>Express</b> tienen un plazo de <b>5 a 8 días</b> y un costo del <b>8% sobre el costo total de la compra</b>.
-        </p>
-        <p id="sta" class="invisible">
-          Los envíos <b>Standard</b> tienen un plazo de <b>12 a 15 días</b> y un costo del <b>5% sobre el costo total de la compra</b>.
-        </p>
-        <br>
-        <label for="formaPago">Forma de pago:</label>
-        <select name="formaPago" id="formaPago" aria-required="true">
-          <option value="seleccionarPago" disabled selected>Seleccionar</option>
-          <option value="tarjeta">Tarjeta de Crédito</option>
-          <option value="transferencia">Transferencia Bancaria</option>
-        </select>
-        <br>
-        <div id="formaPagoTarjeta" class="invisible">
-          <label  for="tarjeta">Número de Tarjeta:</label>
-          <input  type="number" name="tarjeta" id="tarjeta">
-          <label  for="vencimiento">Fecha de Vencimiento:</label>
-          <input  type="date" name="vencimiento" id="vencimiento">
-          <label  for="códigoSeguridad">Código de Seguridad:</label>
-          <input  type="number" name="códigoSeguridad" id="códigoSeguridad">
-        </div>
-        <div id="formaPagoTransferencia" class="invisible">
-          <label for="elegirBanco">Seleccionar Banco:</label>
-          <select name="elegirBanco" id="elegirBanco">
-            <option value="seleccionar" disabled selected>Seleccionar</option>
-            <option value="itau">Banco Itau</option>
-            <option value="brou">Banco República</option>
-            <option value="santander">Banco Santander</option>
-            <option value="scotia">Scotia Bank</option>
+        <div class="divsConfigCarrito">
+          <label for="tipoEnvio" class="text-white m-1">Tipo de envío:</label>
+          <select class="btn btn-secondary" name="tipoEnvio" id="tipoEnvio">
+            <option value="seleccionarEnvio" disabled selected aria-required="true">Seleccionar</option>
+            <option value="Premium">Premium</option>
+            <option value="Express">Express</option>
+            <option value="Standard">Standard</option>
           </select>
-          <label  for="nombreTitular">Nombre del Titular:</label>
-          <input  type="text" name="nombreTitular" id="nombreTitular">
-          <label  for="númeroDeCuenta">Número de Cuenta:</label>
-          <input  type="number" name="númeroDeCuenta" id="númeroDeCuenta">
+          <i class="fas fa-info-circle fa-lg m-1 iconosCarrito"></i>
+          <p id="inf" class="visible text-white">Información del envío</p>
+          <p id="pre" class="invisible">
+            Los envíos <b>Premium</b> tienen un plazo de <b>2 a 5 días</b> y un costo del <b>15% sobre el costo total de la compra</b>.          
+          </p>
+          <p id="exp" class="invisible">
+            Los envíos <b>Express</b> tienen un plazo de <b>5 a 8 días</b> y un costo del <b>8% sobre el costo total de la compra</b>.
+          </p>
+          <p id="sta" class="invisible">
+            Los envíos <b>Standard</b> tienen un plazo de <b>12 a 15 días</b> y un costo del <b>5% sobre el costo total de la compra</b>.
+          </p>
+        </div>
+        <div class="divsConfigCarrito mt-1">
+          <span class="text-white m-1">Forma de pago:</span>
+          <span id="spanAbrirModalFormaPago"><button id="abrirModalFormaPago" type="button" class="btn btn-secondary m-1" data-toggle="modal" data-target="#modalFormaDePago">
+            Seleccionar
+          </button></span>
+          <i id="iconoFormaPagoSinGuardar" class="fas fa-exclamation-circle fa-lg m-1 iconosCarrito"></i>
+          <span id="formaPagoSinGuardar" class="text-white m-1 visible">No se ha ingresado una forma de pago </span>
+          <i id="iconoFormaPagoGuardada" class="invisible"></i><span id="formaPagoGuardada" class="invisible">La forma de pago fue ingresada correctamente</i></span>
+          <span class="invisible" id="formaPagoGuardadaTarjeta">: Tarjeta de Crédito</span>
+          <span class="invisible" id="formaPagoGuardadaTransferencia">: Transferencia Bancaria</span>
+          <button id="reestablecerFormaDePago" type="button" class="btn btn-secondary">Reestablecer</button>
+        </div>
+        <div class="modal fade" id="modalFormaDePago" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Selecciona la forma de pago</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <label for="formaPago">Forma de pago:</label>
+                <select name="formaPago" id="formaPago" aria-required="true">
+                  <option value="seleccionarPago" disabled selected>Seleccionar</option>
+                  <option value="tarjeta">Tarjeta de Crédito</option>
+                  <option value="transferencia">Transferencia Bancaria</option>
+                </select>
+                <br>
+                <div id="formaPagoTarjeta" class="invisible">
+                  <label  for="tarjeta">Número de Tarjeta:</label>
+                  <input  type="number" name="tarjeta" id="tarjeta"><br>
+                  <label  for="vencimiento">Fecha de Vencimiento:</label>
+                  <input  type="month" min="2021-12" name="vencimiento" id="vencimiento"><br>
+                  <label  for="codigoSeguridad">Código de Seguridad:</label>
+                  <input  type="number" name="codigoSeguridad" id="codigoSeguridad" maxlength="3" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"><br>
+                </div>
+                <div id="formaPagoTransferencia" class="invisible">
+                  <label for="elegirBanco">Seleccionar Banco:</label>
+                  <select name="elegirBanco" id="elegirBanco">
+                    <option value="seleccionarBanco" disabled selected>Seleccionar</option>
+                    <option value="itau">Banco Itau</option>
+                    <option value="brou">Banco República</option>
+                    <option value="santander">Banco Santander</option>
+                    <option value="scotia">Scotia Bank</option>
+                  </select><br>
+                  <label  for="nombreTitular">Nombre del Titular:</label>
+                  <input  type="text" name="nombreTitular" id="nombreTitular"><br>
+                  <label  for="numDeCuenta">Número de Cuenta:</label>
+                  <input  type="number" name="númeroDeCuenta" id="numDeCuenta"><br>
+                </div>
+                <p id="seleccionaUnaFormaDePago" class="invisible">Por favor, selecciona una forma de pago <i class="fas fa-exclamation-circle"></i></p>
+                <p id="completaCampos" class="invisible">Por favor, completa todos los campos <i class="fas fa-exclamation-circle"></i></p>
+                <p id="numTarjetaIncorrecto" class="invisible">Por favor, ingresa un número de Tarjeta correcto<i class="fas fa-exclamation-circle"></i></p>
+                <p id="codigoSeguridadIncorrecto" class="invisible">Por favor, ingresa un Código de Seguridad de tres dígitos<i class="fas fa-exclamation-circle"></i></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="guardarCambios" type="button" class="btn btn-success">Guardar Forma de Pago</button>
+              </div>
+            </div>
+          </div>
         </div>          
       </form>
     </div>
-    <div>
-      <table class="table text-left">
-        <thead>
+    <div class="d-flex flex-column mt-1">
+      <div>
+        <table class="table table-bordered rounded">
+        <thead class="thead-light">
           <tr>
-            <th scope="col">¿En qué moneda deseas pagar?</th>
             <th scope="col">Subtotal</th>
             <th scope="col">Costo de Envío</th>
             <th scope="col">Total</th>
@@ -135,10 +192,6 @@
         </thead>
         <tbody>
           <tr>
-            <td>
-              <button id="compraPesos" class="btn btn-dark m-1">Pesos Uruguayos (UYU)</button>
-              <button id="compraDolares" class="btn btn-dark m-1">Dólares (USD)</button>
-            </td>
             <td>
               <table>
                 <tr>
@@ -178,8 +231,12 @@
           </tr>
         </tbody>
       </table>
+      </div>
+      <button id="compraPesos" class="btn btn-dark m-1">Comprar en Pesos Uruguayos</button>
+      <button id="compraDolares" class="btn btn-dark m-1">Comprar en Dólares</button>
     </div>
   </div>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/dropzone.js"></script>

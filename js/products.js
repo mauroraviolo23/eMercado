@@ -57,23 +57,6 @@ function showProductsList(){
                     <p class="text-muted">`+ product.currency + ` ` + product.cost + `</p>
                 </div>
                 `
-            // htmlContentToAppend += `
-            // <a href="product-info.html" class="list-group-item list-group-item-action">
-            //     <div class="row">
-            //         <div class="col-3">
-            //             <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
-            //         </div>
-            //         <div class="col">
-            //             <div class="d-flex w-100 justify-content-between">
-            //                 <h4 class="mb-1">`+ product.name +`</h4>
-            //                 <small class="text-muted">` + product.soldCount + ` vendidos</small>
-            //             </div>
-            //             <p class="mb-1">` + product.description + `</p>
-            //             <p class="mt-5 text-muted">`+ product.currency + ` ` + product.cost + `</p>
-            //         </div>
-            //     </div>
-            // </a>
-            // `
         }
 
         document.getElementById("contProductos").innerHTML = htmlContentToAppend;
