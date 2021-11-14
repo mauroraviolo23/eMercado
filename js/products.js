@@ -46,15 +46,15 @@ function showProductsList(){
 
 
                 htmlContentToAppend += `
-                <div class="col-sm-4 border border-dark mb-1 mr-1">
-                    <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+                <div class="col-sm-4 border border-secondary m-2 rounded eachProduct">
+                    <a href="product-info.html" style="text-decoration: none; color: black; hover: border: 10px solid black;"><img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
                     <div class="d-flex w-100 justify-content-between">
                         <h4>`+ product.name +`</h4>
                         <hr class="linea">
                         <small class="text-muted">` + product.soldCount + ` vendidos</small>
                     </div>
                     <p class="mb-1">` + product.description + `</p>
-                    <p class="text-muted">`+ product.currency + ` ` + product.cost + `</p>
+                    <p class="text-muted">`+ product.currency + ` ` + product.cost + `</p></a>
                 </div>
                 `
         }

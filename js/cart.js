@@ -25,7 +25,7 @@ chargeCartInfo = (url) => {
                 + `
                 <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='productPriceUYU`+ [i+1] +`'>` + priceCurrencyUYU(article[i].currency, article[i].unitCost) + `</td><td id='productPriceUSD`+ [i+1] +`'>` + priceCurrencyUSD(article[i].currency, article[i].unitCost) + `</td></tr></table></td>
                 <td><table><tr><td><small class="text-muted">UYU</small></td><td><small class="text-muted">USD</small></td></tr><tr><td id='productTotalCostUYU`+ [i+1] +`'>` + (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count) + `</td><td id='productTotalCostUSD`+ [i+1] +`'>` + (priceCurrencyUSD(article[i].currency, article[i].unitCost)*article[i].count) + `</td></tr></table></td>
-                <td><i onclick="removeItemFromCart('productBlock`+ [i+1] +`','productTotalCostUYU` + [i+1] +`')" class="fas fa-times-circle clickable"></i></td>
+                <td><i onclick="removeItemFromCart('productBlock`+ [i+1] +`','productTotalCostUYU` + [i+1] +`')" class="fas fa-times-circle fa-times-circle-cart clickable"></i></td>
             </tr>
             `
             subtotalPriceUYU += (priceCurrencyUYU(article[i].currency, article[i].unitCost)*article[i].count);
@@ -218,7 +218,7 @@ const removeItemFromCart = (idBlock, idTotalPrice) => {
     document.getElementById("subtotalUSD").innerHTML = subtotalPriceUSD;
     document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
     document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
-    if(document.getElementById("tipoEnvio").value == "premium"){
+    if(document.getElementById("tipoEnvio").value == "Premium"){
         shippingCostUYU -= document.getElementById(idTotalPrice).innerHTML*0.15;
         shippingCostUSD -= (document.getElementById(idTotalPrice).innerHTML/40)*0.15;
         document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU;
@@ -226,7 +226,7 @@ const removeItemFromCart = (idBlock, idTotalPrice) => {
         document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
         document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
     }
-    else if(document.getElementById("tipoEnvio").value == "express"){
+    else if(document.getElementById("tipoEnvio").value == "Express"){
         shippingCostUYU -= document.getElementById(idTotalPrice).innerHTML*0.08;
         shippingCostUSD -= (document.getElementById(idTotalPrice).innerHTML/40)*0.08;
         document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU;
@@ -234,7 +234,7 @@ const removeItemFromCart = (idBlock, idTotalPrice) => {
         document.getElementById("totalUYU").innerHTML = subtotalPriceUYU + shippingCostUYU;
         document.getElementById("totalUSD").innerHTML = subtotalPriceUSD + shippingCostUSD;
     }
-    else if(document.getElementById("tipoEnvio").value == "standard"){
+    else if(document.getElementById("tipoEnvio").value == "Standard"){
         shippingCostUYU -= document.getElementById(idTotalPrice).innerHTML*0.05;
         shippingCostUSD -= (document.getElementById(idTotalPrice).innerHTML/40)*0.05;
         document.getElementById("costoEnvioUYU").innerHTML = shippingCostUYU;
@@ -531,15 +531,6 @@ const buyInDollars = () => {
         button: 'Entendido'
     })
 }
-
-
-// pagina productos, falta agregar link para que abra la pagina product info
-
-
-
-
-
-
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los

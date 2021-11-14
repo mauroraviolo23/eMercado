@@ -40,7 +40,7 @@ function starRateForAddedComment(value) {
 }
 
 
-chargeProductInfo = (urlProduct, urlRelatedProductsList) => {
+const chargeProductInfo = (urlProduct, urlRelatedProductsList) => {
     let addedContent = [];
     let contentHolder = " ";
     fetch(urlRelatedProductsList)
@@ -130,7 +130,7 @@ chargeProductInfo = (urlProduct, urlRelatedProductsList) => {
     .catch( error => alert("Hubo un error: " + error));
 }
 
-chargeProductCommentsInfo = (url) => {
+const chargeProductCommentsInfo = (url) => {
     fetch(url)
     .then(
         document.getElementById("commentsContainer").innerHTML +=`
@@ -164,7 +164,7 @@ chargeProductCommentsInfo = (url) => {
     .catch( error => alert("Hubo un error: " + error));
 }
 
-formatDate = () => {
+const formatDate = () => {
     var today = new Date();
     var yyyy = today.getFullYear();
     var mm = today.getMonth() + 1;
@@ -197,7 +197,7 @@ formatDate = () => {
     return today;
 }
 
-submitComment = () => {
+const submitComment = () => {
     if (document.getElementById("addComment").value != "") {
         document.getElementById("commentsTable").innerHTML += `
                 <tr>
