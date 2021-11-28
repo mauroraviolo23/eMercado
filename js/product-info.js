@@ -2,6 +2,9 @@ const goldStar = `<span class="fa fa-star checked"></span>`;
 const blackStar = `<span class="fa fa-star"></span>`;
 
 let starCounter;
+
+// Función que determina cuántas estrellas irán marcadas de dorado 
+
 function rate(item) {
     starCounter = item.id[0]; //primer caracter del Id
     let starName = item.id.substring(1); //caracteres luego del primero
@@ -15,6 +18,8 @@ function rate(item) {
         }
     }
 }
+
+// Función que revisa las estrellas marcadas para actualizar el valor del input 
 
 function numRate(item) {
     let element = document.getElementById("numberRate");
@@ -35,10 +40,14 @@ function numRate(item) {
     }
 }
 
+// Función que devuelve las estrellas doradas y negras para el comentario agregado
+
 function starRateForAddedComment(value) {
     return goldStar.repeat(value) + blackStar.repeat(5-value);
 }
 
+
+// Función que carga la información del producto en el documento HTML
 
 const chargeProductInfo = (urlProduct, urlRelatedProductsList) => {
     let addedContent = [];
@@ -130,6 +139,8 @@ const chargeProductInfo = (urlProduct, urlRelatedProductsList) => {
     .catch( error => alert("Hubo un error: " + error));
 }
 
+// Función que carga los comentarios del producto en el documento HTML
+
 const chargeProductCommentsInfo = (url) => {
     fetch(url)
     .then(
@@ -151,7 +162,7 @@ const chargeProductCommentsInfo = (url) => {
     .then(respuesta=>respuesta.json())
     .then(commentsList=> {
         for (let c = 0; c < commentsList.length; c++) {
-            var numOfStars = parseInt(commentsList[c].score);
+            let numOfStars = parseInt(commentsList[c].score);
             document.getElementById("commentsTable").innerHTML += `
             <tr>
                 <td>` + commentsList[c].user + `</td>
@@ -164,14 +175,18 @@ const chargeProductCommentsInfo = (url) => {
     .catch( error => alert("Hubo un error: " + error));
 }
 
+
+// Función que formatea los datos de la fecha actual para que se muestren
+// de la misma forma que los que vienen en los comentarios precargados
+
 const formatDate = () => {
-    var today = new Date();
-    var yyyy = today.getFullYear();
-    var mm = today.getMonth() + 1;
-    var dd = today.getDate();
-    var hrs = today.getHours();
-    var min = today.getMinutes();
-    var sec = today.getSeconds();
+    let today = new Date();
+    let yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1;
+    let dd = today.getDate();
+    let hrs = today.getHours();
+    let min = today.getMinutes();
+    let sec = today.getSeconds();
 
     if (mm < 10) {
         mm = '0' + mm;
@@ -197,6 +212,8 @@ const formatDate = () => {
     return today;
 }
 
+// Función que hace posible el envío del comentario y su impresión en el documento HTML
+
 const submitComment = () => {
     if (document.getElementById("addComment").value != "") {
         document.getElementById("commentsTable").innerHTML += `
@@ -207,7 +224,16 @@ const submitComment = () => {
                 </tr>
                 `}
     else {
-        alert("Por favor, escribe algo")
+        swal({
+            text: 'Por favor, escribe algo',
+            button: {
+                text: "Entendido",
+                value: true,
+                visible: true,
+                className: "confirmButtonSwal",
+                closeModal: true
+            }
+        })
     }
     document.getElementById("addComment").value = '';
     document.getElementById("numberRate").value = 5;

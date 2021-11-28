@@ -1,10 +1,10 @@
 const ORDER_ASC_BY_PRICE = "Ascendente";
 const ORDER_DESC_BY_PRICE = "Descendente";
 const ORDER_BY_SOLD_COUNT = "Relevancia";
-var currentProductsArray = [];
-var currentSortCriteria = undefined;
-var minPrice = undefined;
-var maxPrice = undefined;
+let currentProductsArray = [];
+let currentSortCriteria = undefined;
+let minPrice = undefined;
+let maxPrice = undefined;
 
 function sortProducts(criteria, array){
     let result = [];
@@ -35,6 +35,11 @@ function sortProducts(criteria, array){
     return result;
 }
 
+let productsArrayForRealtimeSearch = [];
+
+
+// Función que muestra la lista de productos en el documento HTML
+
 function showProductsList(){
 
     let htmlContentToAppend = "";
@@ -46,7 +51,7 @@ function showProductsList(){
 
 
                 htmlContentToAppend += `
-                <div class="col-sm-4 border border-secondary m-2 rounded eachProduct">
+                <div class="col-sm-4 border border-secondary m-2 rounded eachProduct" id='product` + [i+1] + `'>
                     <a href="product-info.html" style="text-decoration: none; color: black; hover: border: 10px solid black;"><img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
                     <div class="d-flex w-100 justify-content-between">
                         <h4>`+ product.name +`</h4>
@@ -57,6 +62,11 @@ function showProductsList(){
                     <p class="text-muted">`+ product.currency + ` ` + product.cost + `</p></a>
                 </div>
                 `
+                productsArrayForRealtimeSearch.push(
+                    {name : product.name,
+                    description: product.description,
+                    idProduct : `product` + [i+1] + ``}
+                )
         }
 
         document.getElementById("contProductos").innerHTML = htmlContentToAppend;
@@ -76,6 +86,30 @@ function sortAndShowProducts(sortCriteria, productsArray){
     showProductsList();
 }
 
+// Función que realiza la búsqueda en tiempo real de nombre o descripción del artículo
+
+const searchFormField = document.getElementById('buscadorProductos');
+const searchFormButton = document.getElementById('botonBuscador');
+
+const realtimeSearch = () => {
+    const textFromField = searchFormField.value.toLowerCase();
+    for (element of productsArrayForRealtimeSearch){
+        let productName = element.name.toLowerCase();
+        let productDescription = element.description.toLowerCase();
+        if(productName.indexOf(textFromField) !== -1){
+            document.getElementById(element.idProduct).className = 'col-sm-4 border border-secondary m-2 rounded eachProduct';
+        }
+        else if(productDescription.indexOf(textFromField) !== -1){
+            document.getElementById(element.idProduct).className = 'col-sm-4 border border-secondary m-2 rounded eachProduct';
+        }
+        else if(productName.indexOf(textFromField) == -1){
+            document.getElementById(element.idProduct).className = 'invisible';
+        }
+        else if(productDescription.indexOf(textFromField) == -1){
+            document.getElementById(element.idProduct).className = 'invisible';
+        }
+    }
+}
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -131,4 +165,12 @@ getJSONData(PRODUCTS_URL).then(function(resultObj){
         showProductsList();
     });
 });
+});
+
+document.getElementById('botonBuscador').addEventListener("click", function(){
+    realtimeSearch(); 
+});
+
+document.getElementById('buscadorProductos').addEventListener("keyup", function(){
+    realtimeSearch()
 });

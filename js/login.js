@@ -5,13 +5,58 @@
 
 let usuarioContraseña = [];
 let soloNombreUsuario = [];
+let passwordRegex = /^(?=.{8,})(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/;
+
+// Función que sirve para guardar el usuario y entrar al sitio
 
 const guardarUsuario = () => {
   const nombreUsuario = document.getElementById("nombreUsuario");
   const passwordUsuario = document.getElementById("passwordUsuario");
   const nombre = nombreUsuario.value;
   const password = passwordUsuario.value;
-  if (nombre && password) {
+  if (!nombre) {
+    swal({
+      icon: 'info',
+      title: 'Ingresa un nombre de usuario',
+      text: 'No has ingresado un nombre de usuario',
+      button: {
+        text: "Entendido",
+        value: true,
+        visible: true,
+        className: "confirmButtonSwal",
+        closeModal: true
+      }
+    })
+  }
+  else if(!password) {
+    swal({
+      icon: 'info',
+      title: 'Ingresa una contraseña',
+      text: 'No has ingresado una contraseña',
+      button: {
+        text: "Entendido",
+        value: true,
+        visible: true,
+        className: "confirmButtonSwal",
+        closeModal: true
+      }
+    })
+  }
+  else if (!(passwordRegex.test(password))){
+    swal({
+      icon: 'warning',
+      title: 'La contraseña elegida no cumple con los requisitos',
+      text: 'Tu contraseña debe contar con al menos 8 caracteres, entre ellos por lo menos una mayúscula, una minúscula y un número.',
+      button: {
+        text: "Entendido",
+        value: true,
+        visible: true,
+        className: "confirmButtonSwal",
+        closeModal: true
+      }
+    });
+  }
+  else  if (nombre && password) {
     nombreUsuario.value = "";
     passwordUsuario.value = "";
     usuarioContraseña.push({
@@ -23,9 +68,6 @@ const guardarUsuario = () => {
     localStorage.setItem("soloNombreUsuario", JSON.stringify(soloNombreUsuario))
     window.location = "index.html";
     }
-  else {
-    alert("Ingrese los datos correctamente");
-  }
 };
 
 

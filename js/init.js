@@ -7,16 +7,16 @@ const PRODUCT_INFO_COMMENTS_URL = "https://japdevdep.github.io/ecommerce-api/pro
 const CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/987.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 
-var showSpinner = function(){
+let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
 
-var hideSpinner = function(){
+let hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
-var getJSONData = function(url){
-    var result = {};
+let getJSONData = function(url){
+    let result = {};
     showSpinner();
     return fetch(url)
     .then(response => {
@@ -40,13 +40,18 @@ var getJSONData = function(url){
     });
 }
 
+// Función que muestra el nombre de usuario en el documento HTML
+
 const mostrarUsuario = () => {
   document.getElementById("mostrarUsuario").innerHTML = `<i class="fas fa-user mr-2"></i>`+ (JSON.parse(localStorage.getItem("soloNombreUsuario")))  + ` `;
 };
 
+
+// Función que sirve para borrar los datos del usuario y redirigir al login
+
 const borrarUsuario = () => {
   localStorage.clear();
-  window.location = "login.html"
+  window.location = "login.html";
 }
 
 
@@ -64,6 +69,17 @@ document.addEventListener("DOMContentLoaded", function(e){
 });
 
 document.getElementById("cerrarSesion").addEventListener("click", function(e) {
-  borrarUsuario();
-  alert("Se ha cerrado sesión. Gracias por visitar eMercado. Serás redirigido a la pantalla de registro.")
+  swal({
+    title: 'Se ha cerrado la sesión',
+    text: 'Gracias por visitar eMercado. Serás redirigido a la pantalla de registro.',
+    button: {
+      text: "Entendido",
+      value: true,
+      visible: true,
+      className: "confirmButtonSwal",
+      closeModal: true
+    }
+  }).then(function() {
+    borrarUsuario();
+});
 })

@@ -360,3 +360,8 @@ input[type=number] {
   display: inline;
   font-size: 0.85em;
 }
+
+/* SweetAlert */
+.confirmButtonSwal {
+  background-color: #007BFF;
+}

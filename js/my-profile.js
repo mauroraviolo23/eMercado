@@ -1,3 +1,5 @@
+// Función que trae los datos del local storage y los muestra en el documento HTML
+
 const showMyData = () => {
     document.getElementById("misDatos-NombreUsuario").innerHTML = JSON.parse(localStorage.getItem("soloNombreUsuario"));
     document.getElementById("misDatos-NombresApellidos").innerHTML = JSON.parse(localStorage.getItem("miNombre"));
@@ -5,6 +7,9 @@ const showMyData = () => {
     document.getElementById("misDatos-Email").innerHTML = JSON.parse(localStorage.getItem("miEmail"));
     document.getElementById("misDatos-TelefonoContacto").innerHTML = JSON.parse(localStorage.getItem("miTelefono"));
 }
+
+
+// Función que sirve para actualizar los datos personales del usuario
 
 const editMyData = (element) => {
     if (element.id == "misDatos-editarNombre") {
@@ -57,6 +62,8 @@ let miNombre = [];
 let miEdad = [];
 let miEmail = [];
 let miTelefono = [];
+
+// Función que actualiza los datos del usuario 
 
 const saveMyData = (element) => {
     if (element.id == "editarMisDatos-GuardarNombre") {
@@ -147,6 +154,8 @@ const saveMyData = (element) => {
         }
     }
 }
+
+// Función que cancela el envío de los datos personales
 
 const cancelSaveData = (block, input) => {
     document.getElementById(block).className = "invisible";

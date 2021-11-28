@@ -6,6 +6,8 @@ let shippingCostUSD = 0;
 
 let articleCounter = 0;
 
+// Función que carga la información del carrito en el documento HTML
+
 chargeCartInfo = (url) => {
     fetch(url)
     .then(respuesta=>respuesta.json())
@@ -40,6 +42,7 @@ chargeCartInfo = (url) => {
     .catch(error => alert("Hubo un error: " + error));
     };
 
+    
 // función que actualiza cantidad y precio de cada artículo
 const quantAndPriceChanger = (element, idCount, idCostUYU, idCostUSD, cost, currency) => {
     if (element.className == "fas fa-plus-circle mr-1 clickable"){

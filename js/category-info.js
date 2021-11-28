@@ -1,4 +1,4 @@
-var category = {};
+let category = {};
 
 function showImagesGallery(array){
 
