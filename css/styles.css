@@ -206,9 +206,12 @@ div#starContainer:first-child {
 }
 
 .login-form {
-  padding-top: 5px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  height: 500px;
+  width: 500px;
+  margin: 100px auto;
 }
 
 .white {
@@ -225,16 +228,19 @@ div#starContainer:first-child {
 .login-form-subtitle {
   align-self: center;
   font-size: 1.25em;
- 
   margin-bottom: 30px;
   color: #fff;
 }
 
+.login-form-inputs {
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+  margin: 0 auto 0 auto;
+}
+
 .login-form-send {
   align-self: center;
-  width: 20%;
-  margin-bottom: 30px;
-  margin-right: 15px;
 }
 
 .login-form-send:hover {
@@ -242,17 +248,18 @@ div#starContainer:first-child {
   }
 
 .unregistered {
-  margin-top: -20px;
+  margin-top: 30px;
+  color: #fff;
 }
 
-.login-img {
+/* .login-img {
   background-image: url(../img/login.png);
   background-repeat: no-repeat;
   background-size: cover;
   height: 500px;
   width: 100%;
   margin-top: -60px;
-}
+} */
 
 /* clases pagina cart */
 .small-img {

@@ -14,19 +14,18 @@
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body class="login-body text-center">
-  <nav class="site-header sticky-top py-1 bg-dark login-form">
-      <h1 class="white">¡Bienvenido a <span class="title-special">eMercado!</span></h1>
-      <h2 class="login-form-subtitle">Ingresa tu usuario y contraseña para continuar</h2>
-        <div>
-          <label for="nombreUsuario" class="white mt-2">Usuario: <input type="email" id="nombreUsuario" name="nombreUsuario" placeholder="miusuario@mail.com">
-          </label>
-          <label for="passwordUsuario" class="white mt-2">Contraseña: <input type="password" id="passwordUsuario" name="passwordUsuario" placeholder="********">
-          </label>
-        </div>
-      <input class="login-form-send title-special btn btn-light mt-4" type="button" value="Entrar a eMercado" id="btnLogin"/>
-  </nav>
-  <div class="login-img"></div>
-  <p class="unregistered">¿Todavía no estás registrado? Haz clic <a href="#">aquí</a>.</p>
+  <div class="bg-dark login-form">
+    <h1 class="white">¡Bienvenido a <span class="title-special">eMercado!</span></h1>
+    <h2 class="login-form-subtitle">Ingresa tu usuario y contraseña para continuar</h2>
+    <div class="login-form-inputs">
+      <label for="nombreUsuario" class="white mt-2">Usuario: <input type="email" id="nombreUsuario" name="nombreUsuario" placeholder="miusuario@mail.com">
+      </label>
+      <label for="passwordUsuario" class="white mt-2">Contraseña: <input type="password" id="passwordUsuario" name="passwordUsuario" placeholder="********">
+      </label>
+    </div>
+    <input class="login-form-send title-special btn btn-light mt-4" type="button" value="Entrar a eMercado" id="btnLogin"/>
+    <p class="unregistered">¿Todavía no estás registrado? Haz clic <a href="#">aquí</a>.</p>
+  </div>
   <script src="js/login.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
